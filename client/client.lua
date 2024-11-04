@@ -9,18 +9,10 @@ RegisterNUICallback('hideFrame', function(_, cb)
   cb({})
 end)
 
-Citizen.CreateThread(function()
-  RegisterKeyMapping('spawnCar', 'Spawn Car', 'keyboard', Config.SpawnKey)
-end)
-
 RegisterNuiCallback('serviceList', function(data, cb)
-  debugPrint('VEHICLE LIST Data sent by React', json.encode(data))
+  debugPrint('Data sent by React', json.encode(data))
   cb(ServiceDictionary)
 end)
-
-RegisterCommand('spawnCar', function()
-  toggleNuiFrame(true)
-end, false)
 
 RegisterNUICallback('spawnLoadout', function(data, cb)
   removeWeapons() -- remove ped weapons
@@ -63,13 +55,13 @@ function setOutfit(eupID)
        SetPedComponentVariation(ped, comp[1], comp[2] - 1, comp[3] - 1, 0)
     end
 
-    -- for _, comp in ipairs(selectedEUP.props) do
-    --     if comp[2] == 0 then
-    --         ClearPedProp(ped, comp[1])
-    --     else
-    --         SetPedPropIndex(ped, comp[1], comp[2] - 1, comp[3] - 1, true)
-    --     end
-    -- end
+    for _, comp in ipairs(selectedEUP.props) do
+        if comp[2] == 0 then
+            ClearPedProp(ped, comp[1])
+        else
+            SetPedPropIndex(ped, comp[1], comp[2] - 1, comp[3] - 1, true)
+        end
+    end
 
 
   local categoryOutfits = {}
